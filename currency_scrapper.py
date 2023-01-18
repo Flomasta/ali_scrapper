@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 from fake_headers import Headers
 from requests.auth import HTTPProxyAuth
 from settings.config_db import DATABASE, USER, PASS, HOST
-from settings.urls import url_cb, url_ali
+from settings.urls import url_cb, url_ali, url_ali_alt
 from settings.other_data import PROXY_LIST, PRICE_LOG, CONNECTION_LOG, DB_ADDITION_LOG
 from sqlalchemy import create_engine, Table, MetaData
 
@@ -27,6 +27,15 @@ def get_proxies(file) -> str:
             yield ((ip,) + logipass)
 
 
+def get_alternate_ali(url):
+    fake_header = Headers(os="mac", headers=True).generate()
+    response = requests.get(url=url, headers=fake_header)
+    soup = BeautifulSoup(response.text, 'lxml')
+    third_td = soup.select("table tr:nth-child(2) td:nth-child(3)")
+    text = third_td[0].text
+    return float(text)
+
+
 def scrap_data(url_ali) -> str:
     try:
         headers = Headers(os="mac", headers=True).generate()
@@ -40,7 +49,11 @@ def scrap_data(url_ali) -> str:
             response = requests.get(url=url_ali, headers=headers)
 
         soup = BeautifulSoup(response.text, 'lxml')
-        return soup.find('div', 'snow-price_SnowPrice__mainS__18x8np').text
+        data = soup.find('div', 'snow-price_SnowPrice__mainS__18x8np').text
+        if isinstance(data, str):
+            return data
+        else:
+            get_alternate_ali(url_ali_alt)
     except Exception as ex:
         write_log(CONNECTION_LOG, ex)
 
