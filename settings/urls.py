@@ -3,3 +3,4 @@ url_ali = 'http://aliexpress.ru/item/1005003727034635.html?sub=45ro61bcj7l9p1ez9
 url_cb = 'http://cbr.ru/currency_base/daily/'
 
 url_ali_alt = 'http://helpix.ru/currency/'
+sdas
