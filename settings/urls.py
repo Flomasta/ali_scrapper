@@ -5,4 +5,4 @@ url_cb = 'http://cbr.ru/currency_base/daily/'
 url_ali_alt = 'http://helpix.ru/currency/'
 
 
-send it to other machine
+got it
