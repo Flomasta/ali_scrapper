@@ -50,10 +50,10 @@ def scrap_data(url_ali) -> str:
 
         soup = BeautifulSoup(response.text, 'lxml')
         data = soup.find('div', 'snow-price_SnowPrice__mainS__18x8np')
-        if isinstance(data):
+        if data:
             return data.text
         else:
-            get_alternate_ali(url_ali_alt)
+            return get_alternate_ali(url_ali_alt)
     except Exception as ex:
         write_log(CONNECTION_LOG, ex)
 
@@ -62,6 +62,8 @@ def get_ali_currency(url_ali) -> float:
     while True:
         try:
             price = scrap_data(url_ali)
+            if isinstance(price, float):
+                return price
             price = float(re.sub(r'[^\d,]', '', price).replace(',', '.'))
             return price
         except Exception as ex:
