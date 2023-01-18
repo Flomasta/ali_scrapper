@@ -49,9 +49,9 @@ def scrap_data(url_ali) -> str:
             response = requests.get(url=url_ali, headers=headers)
 
         soup = BeautifulSoup(response.text, 'lxml')
-        data = soup.find('div', 'snow-price_SnowPrice__mainS__18x8np').text
-        if isinstance(data, str):
-            return data
+        data = soup.find('div', 'snow-price_SnowPrice__mainS__18x8np')
+        if isinstance(data):
+            return data.text
         else:
             get_alternate_ali(url_ali_alt)
     except Exception as ex:
