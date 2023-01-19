@@ -63,7 +63,7 @@ def about():
 
 
 if __name__ == '__main__':
-    app.run(host='192.168.31.178:5000')
+    app.run(host='192.168.31.178')
 
 # # create a connection to the database
 # engine = create_engine(f'mysql+mysqlconnector://{USER}:{PASS}@{HOST}/{DATABASE}', echo=False)
