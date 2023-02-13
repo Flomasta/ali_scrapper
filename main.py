@@ -32,7 +32,7 @@ def generate_plot():
     result.close()
 
     # create a line plot of the data
-    fig, ax1 = plt.subplots(figsize=(9, 9))
+    fig, ax1 = plt.subplots(figsize=(19, 19))
     ax2 = ax1.twinx()
     ax1.plot(date, ali, 'g-')
     ax1.plot(date, cb, 'b-')
@@ -40,7 +40,7 @@ def generate_plot():
     ax1.set_xlabel('Date')
     ax1.set_ylabel('Ali and CB Currency', color='g', fontsize=12)
     ax2.set_ylabel('Difference', color='r', fontsize=12)
-    ax1.set_ylim(0, 200)
+    ax1.set_ylim(0, 100)
 
     # convert the plot to a png image
     buf = io.BytesIO()
